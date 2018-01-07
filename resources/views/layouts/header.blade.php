@@ -1,94 +1,90 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>Gallery Frames PH</title>
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Gallery Frames</title>
+  <!-- Bootstrap core CSS-->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Page level plugin CSS-->
+  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet">
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="index.html">Gallery Frames</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        Gallery Frames PH
-                    </a>
-                </div>
+        @if(Auth::user()->role == 'Client')
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+          <a class="nav-link" href="{{ url('order-product') }}">
+            <i class="fa fa-fw fa-cubes"></i>
+            <span class="nav-link-text">Order Product</span>
+        </a>
+        </li>
+        @endif
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
+        @if(Auth::user()->role == 'Cashier')
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+          <a class="nav-link" href="{{ url('use-pos') }}">
+            <i class="fa fa-fw fa-money"></i>
+            <span class="nav-link-text">Use POS</span>
+        </a>
+        </li>
+        @endif
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                            
-                        @else
+        @if(Auth::user()->role == 'Admin')
 
-                            @if(Auth::user()->role == 'Client')
-                                <li><a href="{{ url('order-product') }}">Order Product</a></li>
-                            @endif
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+          <a class="nav-link" href="{{ url('dashboard') }}">
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span class="nav-link-text">Dashboard</span>
+        </a>
+        </li>
 
-                            @if(Auth::user()->role == 'Cashier')
-                                <li><a href="{{ url('use-pos') }}">Use POS</a></li>
-                            @endif
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+      <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#1" data-parent="#exampleAccordion">
+        <i class="fa fa-fw fa-money"></i>
+        <span class="nav-link-text">Sales</span>
+    </a>
+    <ul class="sidenav-second-level collapse" id="1">
+       <li>
+        <a href="{{ url('use-pos') }}">Use POS</a>
+    </li>
+    <li>
+        <a href="{{ url('manage-customer-orders') }}">Manage Customer Orders</a>
+    </li>
+</ul>
+</li>
 
-                            @if(Auth::user()->role == 'Admin')
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    Sales <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ url('use-pos') }}">Use POS</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('manage-customer-orders') }}">Manage Customer Orders</a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    Manage Items <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ url('purchase-orders') }}">Purchase Orders</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('goods-receipts') }}">Goods Receipts</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('process-materials') }}">Process Materials</a>
-                                    </li>
+<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+  <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#2" data-parent="#exampleAccordion">
+    <i class="fa fa-fw fa-cubes"></i>
+    <span class="nav-link-text">Manage Items</span>
+</a>
+<ul class="sidenav-second-level collapse" id="2">
+   <li>
+    <a href="{{ url('purchase-orders') }}">Purchase Orders</a>
+</li>
+<li>
+    <a href="{{ url('goods-receipts') }}">Goods Receipts</a>
+</li>
+<li>
+    <a href="{{ url('process-materials') }}">Process Materials</a>
+</li>
                                     <!-- <li>
                                         <a href="{{ url('product-blueprints') }}">Product Blueprints</a>
                                     </li> -->
@@ -96,28 +92,28 @@
                                 </ul>
                             </li>
 
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    Manage Users <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ url('manage-employees') }}">Employees</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('manage-suppliers') }}">Suppliers</a>
-                                    </li>
-                                </ul>
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+                              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#3" data-parent="#exampleAccordion">
+                                <i class="fa fa-fw fa-users"></i>
+                                <span class="nav-link-text">Manage Users</span>
+                            </a>
+                            <ul class="sidenav-second-level collapse" id="3">
+                               <li>
+                                <a href="{{ url('manage-employees') }}">Employees</a>
                             </li>
+                            <li>
+                                <a href="{{ url('manage-suppliers') }}">Suppliers</a>
+                            </li>
+                        </ul>
+                    </li>
 
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    Manage Settings <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+                              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#4" data-parent="#exampleAccordion">
+                                <i class="fa fa-fw fa-cog"></i>
+                                <span class="nav-link-text">Manage Settings</span>
+                            </a>
+                            <ul class="sidenav-second-level collapse" id="4">
+                               <li>
                                         <a href="{{ url('receipt-adjustment') }}">Receipt Adjustment</a>
                                     </li>
                                     <li>
@@ -128,33 +124,47 @@
                                     </li>
 
                                     <li><a href="{{ url('manage-items') }}">Items</a></li>
-                                    
-                                </ul>
-                            </li>
+                        </ul>
+                    </li>
 
-                            @endif
+                    @endif
+                </ul>
+                <ul class="navbar-nav sidenav-toggler">
+                    <li class="nav-item">
+                      <a class="nav-link text-center" id="sidenavToggler">
+                        <i class="fa fa-fw fa-angle-left"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
 
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                <li class="nav-item">
+                  <form class="form-inline my-2 my-lg-0 mr-lg-2">
+                    <div class="input-group">
+                      <input class="form-control" type="text" placeholder="Search for...">
+                      <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button">
+                          <i class="fa fa-search"></i>
+                      </button>
+                  </span>
+              </div>
+          </form>
+      </li>
+      <li class="nav-item">
 
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
+            <a class="nav-link" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            <i class="fa fa-sign-out"></i> Logout
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
-            </div>
-        </nav>
+
+        </li>
+    </ul>
+</div>
+</nav>
+<div class="content-wrapper">
+    <div class="container-fluid">

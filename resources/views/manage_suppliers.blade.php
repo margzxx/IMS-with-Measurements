@@ -36,7 +36,7 @@
                                 <td>{{ $item->details }}</td>
                                 <td>
                                     <a href="{{ url('edit-supplier/'.$item->id) }}">
-                                        <input type="button" class="btn btn-default form-control" value="Edit">
+                                        <input type="button" class="btn btn-primary form-control" value="Edit">
                                     </a>
                                 </td>
 
