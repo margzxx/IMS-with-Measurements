@@ -7,9 +7,6 @@ use App\Branch;
 use App\Order;
 ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Purchase Orders - {{ $purchasing_id }}</div>
 
@@ -143,8 +140,5 @@ use App\Order;
 
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
 @include('layouts.footer')

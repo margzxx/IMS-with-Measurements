@@ -6,9 +6,7 @@ use App\Category;
 use App\Branch;
 ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
+
             <div class="panel panel-default">
                 <div class="panel-heading">Add Orders</div>
 
@@ -53,8 +51,6 @@ use App\Branch;
 
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
 
 @include('layouts.footer')

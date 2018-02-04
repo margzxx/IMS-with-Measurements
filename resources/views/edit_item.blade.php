@@ -5,9 +5,7 @@ use App\Supplier;
 use App\Category;
 ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+
             <div class="panel panel-default">
                 <div class="panel-heading">Edit Item</div>
 
@@ -78,8 +76,6 @@ use App\Category;
 
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
 
 @include('layouts.footer')

@@ -7,9 +7,7 @@ use App\Item;
 use App\Good;
 ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
+
             <div class="panel panel-default">
                 <div class="panel-heading">Manage Inventory - Leftovers</div>
 
@@ -49,8 +47,5 @@ use App\Good;
 
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
 @include('layouts.footer')

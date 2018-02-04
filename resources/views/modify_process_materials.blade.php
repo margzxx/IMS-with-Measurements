@@ -9,9 +9,7 @@ use App\Material;
 use App\Product;
 ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
+
             <div class="panel panel-default">
                 <div class="panel-heading">Process Materials - {{ $product_id }}</div>
 
@@ -154,8 +152,6 @@ use App\Product;
 
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
 
 @include('layouts.footer')
