@@ -80,10 +80,10 @@
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
                             </div>
                             <!-- /input-group -->
                         </li>
@@ -92,103 +92,103 @@
 
                         @else
 
-                                    @if(Auth::user()->role == 'Client')
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                      <a class="nav-link" href="{{ url('order-product') }}">
-                        <i class="fa fa-fw fa-cubes"></i>
-                        <span class="nav-link-text">Order Product</span>
-                    </a>
+                        @if(Auth::user()->role == 'Client')
+                        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                          <a class="nav-link" href="{{ url('order-product') }}">
+                            <i class="fa fa-fw fa-cubes"></i>
+                            <span class="nav-link-text">Order Product</span>
+                        </a>
                     </li>
                     @endif
 
-                     @if(Auth::user()->role == 'Cashier')
+                    @if(Auth::user()->role == 'Cashier')
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
                       <a class="nav-link" href="{{ url('use-pos') }}">
                         <i class="fa fa-fw fa-money"></i>
                         <span class="nav-link-text">Use POS</span>
                     </a>
-                    </li>
-                    @endif
+                </li>
+                @endif
 
-                    @if(Auth::user()->role == 'Admin')
+                @if(Auth::user()->role == 'Admin')
 
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                      <a class="nav-link" href="{{ url('dashboard') }}">
-                        <i class="fa fa-fw fa-dashboard"></i>
-                        <span class="nav-link-text">Dashboard</span>
-                    </a>
-                    </li>
-                    @endif
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                  <a class="nav-link" href="{{ url('dashboard') }}">
+                    <i class="fa fa-fw fa-dashboard"></i>
+                    <span class="nav-link-text">Dashboard</span>
+                </a>
+            </li>
+            @endif
 
-                       <li>
-                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Sales<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                              <li>
-                                  <a href="{{ url('use-pos') }}">Use POS</a>
-                              </li>
-                                <li>
-                                <a href="{{ url('manage-customer-orders') }}">Manage Customer Orders</a>
-                            </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+            <li>
+               <a href="#"><i class="fa fa-sitemap fa-fw"></i> Sales<span class="fa arrow"></span></a>
+               <ul class="nav nav-second-level">
+                  <li>
+                      <a href="{{ url('use-pos') }}">Use POS</a>
+                  </li>
+                  <li>
+                    <a href="{{ url('manage-customer-orders') }}">Manage Customer Orders</a>
+                </li>
+            </ul>
+            <!-- /.nav-second-level -->
+        </li>
 
 
 
-                        <li>
-                             <a href="#"><i class="fa fa-table fa-fw"></i> Manage Items<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                              <li>
-                                  <a href="{{ url('purchase-orders') }}">Purchase Orders</a>
-                              </li>
-                              <li>
-                                  <a href="{{ url('goods-receipts') }}">Goods Receipts</a>
-                              </li>
-                              <li>
-                                  <a href="{{ url('process-materials') }}">Process Materials</a>
-                              </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+        <li>
+           <a href="#"><i class="fa fa-table fa-fw"></i> Manage Items<span class="fa arrow"></span></a>
+           <ul class="nav nav-second-level">
+              <li>
+                  <a href="{{ url('purchase-orders') }}">Purchase Orders</a>
+              </li>
+              <li>
+                  <a href="{{ url('goods-receipts') }}">Goods Receipts</a>
+              </li>
+              <li>
+                  <a href="{{ url('process-materials') }}">Process Materials</a>
+              </li>
+          </ul>
+          <!-- /.nav-second-level -->
+      </li>
 
-                         <li>
-                             <a href="#"><i class="fa fa-user fa-fw"></i> Manage Users<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                               <li>
-                                <a href="{{ url('manage-employees') }}">Employees</a>
-                            </li>
-                            <li>
-                                <a href="{{ url('manage-suppliers') }}">Suppliers</a>
-                            </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+      <li>
+       <a href="#"><i class="fa fa-user fa-fw"></i> Manage Users<span class="fa arrow"></span></a>
+       <ul class="nav nav-second-level">
+         <li>
+            <a href="{{ url('manage-employees') }}">Employees</a>
+        </li>
+        <li>
+            <a href="{{ url('manage-suppliers') }}">Suppliers</a>
+        </li>
+    </ul>
+    <!-- /.nav-second-level -->
+</li>
 
-                          <li>
-                             <a href="#"><i class="fa fa-cog fa-fw"></i> Manage Settings<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                             <li>
-                                        <a href="{{ url('receipt-adjustment') }}">Receipt Adjustment</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('manage-branches') }}">Branches</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('manage-categories') }}">Categories</a>
-                                    </li>
+<li>
+   <a href="#"><i class="fa fa-cog fa-fw"></i> Manage Settings<span class="fa arrow"></span></a>
+   <ul class="nav nav-second-level">
+       <li>
+        <a href="{{ url('receipt-adjustment') }}">Receipt Adjustment</a>
+    </li>
+    <li>
+        <a href="{{ url('manage-branches') }}">Branches</a>
+    </li>
+    <li>
+        <a href="{{ url('manage-categories') }}">Categories</a>
+    </li>
 
-                                    <li><a href="{{ url('manage-items') }}">Items</a></li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+    <li><a href="{{ url('manage-items') }}">Items</a></li>
+</ul>
+<!-- /.nav-second-level -->
+</li>
 
-                      @endif
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
+@endif
+</ul>
+</div>
+<!-- /.sidebar-collapse -->
+</div>
+<!-- /.navbar-static-side -->
+</nav>
 
-        <div id="page-wrapper" style="padding-top:20px">
-            <div class="row">
+<div id="page-wrapper" style="padding-top:20px">
+    <div class="row">

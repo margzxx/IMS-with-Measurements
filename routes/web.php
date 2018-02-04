@@ -1,7 +1,7 @@
 <?php
 
 
-Route::get('/','HomeController@showHome');
+Route::get('/','CoreController@showHome');
 Route::get('logout','HomeController@doLogout');
 
 Auth::routes();

@@ -7,15 +7,9 @@ use Illuminate\Http\Request;
 class CoreController extends Controller
 {
     
-	public function showRegister(){
+	public function showHome(){
 
-		return view('register');
-		
-	}
-
-	public function showLogin(){
-
-		return view('login');
+		return view('home');
 		
 	}
 
