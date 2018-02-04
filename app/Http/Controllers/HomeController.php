@@ -146,7 +146,7 @@ class HomeController extends Controller
             'address'=>$request->input('address'),
             'details'=>$request->input('details'),
             'contact_number'=>$request->input('contact_number'),
-            ]);
+        ]);
 
         return redirect('manage-suppliers');
 
@@ -251,7 +251,7 @@ class HomeController extends Controller
 
         DB::table('categories')->where('id',$request->input('category_id'))->update([
             'description'=>$request->input('description'),
-            ]);
+        ]);
 
         return redirect('manage-categories');
 
@@ -276,7 +276,7 @@ class HomeController extends Controller
                 'category_id'=>$request->input('category_id'),
                 'description'=>$request->input('description'),
                 'file'=>'assets/files/UploadedItems/'.$file_name,
-                ]);
+            ]);
 
 
         }else{
@@ -290,7 +290,7 @@ class HomeController extends Controller
                 'branch_id'=>1,
                 'category_id'=>$request->input('category_id'),
                 'description'=>$request->input('description'),
-                ]);
+            ]);
 
         }
 
@@ -341,7 +341,7 @@ class HomeController extends Controller
         DB::table('branches')->where('id',$request->input('branch_id'))->update([
             'description'=>$request->input('description'),
             'address'=>$request->input('address'),
-            ]);
+        ]);
 
         return redirect('manage-branches');
 
@@ -402,7 +402,7 @@ class HomeController extends Controller
 
         DB::table('users')->where('id',$request->input('user_id'))->update([
             'password'=>bcrypt($request->input('password')),
-            ]);
+        ]);
 
         $request->session()->flash('success','Password updated.');
 
@@ -417,7 +417,7 @@ class HomeController extends Controller
             'email'=>$request->input('email'),
             'role'=>$request->input('role'),
             'branch_id'=>$request->input('branch_id'),
-            ]);
+        ]);
 
         return redirect('manage-employees');
 
@@ -462,7 +462,7 @@ class HomeController extends Controller
 
         DB::table('receipts')->where('id',1)->update([
             'description'=>$request->input('description'),
-            ]);
+        ]);
 
         $request->session()->flash('success','Great! Receipt adjusted');
 
@@ -542,11 +542,11 @@ class HomeController extends Controller
 
         DB::table('products')->where('product_id',$item->product_id)->update([
             'qty'=> $qty[$i] - $item->qty,
-            ]);
+        ]);
 
         DB::table('receipts')->where('id',1)->update([
             'description'=>$request->input('official_receipt')+$request->input('official_receipt'),
-            ]);
+        ]);
 
         echo "<tr>";
         echo "<td>".Item::find($item_id[$i])->name."</td>";
@@ -587,7 +587,7 @@ public function showPurchaseOrders(){
 }
 
 public function showProcessMaterials(){
-        
+
     $products = Product::all();
 
     return view('process_materials')->with('products',$products);
@@ -639,114 +639,121 @@ public function doAddProcessMaterial(Request $request){
 
     // return $request->input('leftover_id');
 
-    if($request->input('leftover_id') != 0){
+    $goods = $request->input('good_id');
 
-        $good = Leftover::find($request->input('leftover_id'));
+    foreach($goods as $good){
 
+        if($request->input('leftover_id') != 0){
 
-        DB::table('leftovers')->where('id',$good->id)->update([
-        'qty'=>$good->qty - $request->input('qty'),
-        ]);
+            $selected_good = Leftover::find($request->input('leftover_id'));
 
-    }else{
-
-        $good = Good::find($request->input('good_id'));   
-
-    }
-    
-
-    $material = new Material;
-
-    $material->product_id = $request->input('product_id');
-    $material->name = $request->input('name');
-    $material->purchasing_id = $good->purchasing_id;
-    $material->good_id = $good->id;
-    $material->item_id = $good->item_id;
-    $material->branch_id = $good->branch_id;
-    $material->category_id = $good->category_id;
-    $material->supplier_id = $good->supplier_id;
-    $material->status = 'Pending';
-
-    $material->width = $request->input('width');
-    $material->height = $request->input('height');
-
-    if($request->input('width') <= 5 && $request->input('height') <= 5){
-        // $material->width = 10 - ($request->input('width') * 2);
-        // $material->height = 10 - ($request->input('height') * 2);
-    }elseif($request->input('width') <= 10 && $request->input('height') <= 10){
-        // $material->width = 20 - ($request->input('width') * 2);
-        // $material->height = 20 - ($request->input('height') * 2);
-    }
-    
-
-
-    $material->qty = $request->input('qty');
-    $material->processed_date = date('Y-m-d');
-    $material->save();
-
-    DB::table('goods')->where('id',$good->id)->update([
-        'qty'=>$good->qty - $request->input('qty'),
-        ]);
-
-    if(Leftover::where('item_id',$material->item_id)->exists()){
-
-        $temp_leftover = Leftover::where('item_id',$material->item_id)->first();
-
-        DB::table('leftovers')->where('item_id',$material->item_id)->update([
-            'qty'=>$temp_leftover->qty + 2,
+            DB::table('leftovers')->where('id',$selected_good->id)->update([
+                // 'qty'=>$selected_good->qty - $request->input('qty'),
+                'qty'=>$selected_good->qty - 1,
             ]);
-
-    }else{
-
-
-
-        $leftover = new Leftover;
-
-        $leftover->purchasing_id = $good->purchasing_id;
-        $leftover->item_id = $good->item_id;
-        $leftover->supplier_id = $good->supplier_id;
-        $leftover->category_id = $good->category_id;
-        $leftover->branch_id = $good->branch_id;
-
-        if($request->input('flexible')){
-
-            $leftover->qty = 2;
-
-            if($request->input('width') <= 5 && $request->input('height') <= 5){
-                $leftover->size = 10 - ($request->input('width') * 2);
-
-            }elseif($request->input('width') <= 10 && $request->input('height') <= 10){
-                $leftover->size = 20 - ($request->input('width') * 2);
-
-            }
 
         }else{
 
-            $leftover->qty = 1;
+            $selected_good = Good::find($good);   
 
-            $glass_width = 10 - $request->input('width');
-            $glass_height = 10 - $request->input('height');
+        }
 
-            if($glass_height <= $glass_width){
+        $material = new Material;
 
-                $leftover->size = $glass_height.'x10';
+        $material->product_id = $request->input('product_id');
+        $material->name = $request->input('name');
+        $material->purchasing_id = $selected_good->purchasing_id;
+        $material->good_id = $selected_good->id;
+        $material->item_id = $selected_good->item_id;
+        $material->branch_id = $selected_good->branch_id;
+        $material->category_id = $selected_good->category_id;
+        $material->supplier_id = $selected_good->supplier_id;
+        $material->status = 'Pending';
+
+        $material->width = $request->input('width');
+        $material->height = $request->input('height');
+
+        if($request->input('width') <= 5 && $request->input('height') <= 5){
+        // $material->width = 10 - ($request->input('width') * 2);
+        // $material->height = 10 - ($request->input('height') * 2);
+        }elseif($request->input('width') <= 10 && $request->input('height') <= 10){
+        // $material->width = 20 - ($request->input('width') * 2);
+        // $material->height = 20 - ($request->input('height') * 2);
+        }
+
+
+
+        // $material->qty = $request->input('qty');
+        $material->qty = 1;
+        $material->processed_date = date('Y-m-d');
+        $material->save();
+
+        DB::table('goods')->where('id',$selected_good->id)->update([
+            // 'qty'=>$selected_good->qty - $request->input('qty'),
+            'qty'=>$selected_good->qty - 1,
+        ]);
+
+        if(Leftover::where('item_id',$material->item_id)->exists()){
+
+            $temp_leftover = Leftover::where('item_id',$material->item_id)->first();
+
+            DB::table('leftovers')->where('item_id',$material->item_id)->update([
+                'qty'=>$temp_leftover->qty + 2,
+            ]);
+
+        }else{
+
+            $leftover = new Leftover;
+
+            $leftover->purchasing_id = $selected_good->purchasing_id;
+            $leftover->item_id = $selected_good->item_id;
+            $leftover->supplier_id = $selected_good->supplier_id;
+            $leftover->category_id = $selected_good->category_id;
+            $leftover->branch_id = $selected_good->branch_id;
+
+            if($request->input('flexible')){
+
+                $leftover->qty = 2;
+
+                if($request->input('width') <= 5 && $request->input('height') <= 5){
+                    $leftover->size = 10 - ($request->input('width') * 2);
+
+                }elseif($request->input('width') <= 10 && $request->input('height') <= 10){
+                    $leftover->size = 20 - ($request->input('width') * 2);
+
+                }
 
             }else{
 
-                $leftover->size = '10x'.$glass_height;
+                $leftover->qty = 1;
+
+                $glass_width = 10 - $request->input('width');
+                $glass_height = 10 - $request->input('height');
+
+                if($glass_height <= $glass_width){
+
+                    $leftover->size = $glass_height.'x10';
+
+                }else{
+
+                    $leftover->size = '10x'.$glass_height;
+
+                }
 
             }
 
-        }
-      
 
-        $leftover->transaction_date = $good->transaction_date;
-        $leftover->save();
+            $leftover->transaction_date = $selected_good->transaction_date;
+            $leftover->save();
+
+        }
 
     }
 
 
-    return redirect('modify-process-materials/'.$request->input('product_id'));
+    // return redirect('modify-process-materials/'.$request->input('product_id'));
+
+    return back();
 
 }
 
@@ -763,7 +770,7 @@ public function doEditPurchaseOrder(Request $request){
         'qty'=>$request->input('qty'),
         'discount'=>$request->input('discount'),
         'total'=>($request->input('qty')*$item->price) - (($request->input('discount')/100) * ($request->input('qty')*$item->price)),
-        ]);
+    ]);
 
     $request->session()->flash('success','Purchase order updated.');
 
@@ -845,7 +852,7 @@ public function doSubmitPurchaseOrder($id){
 
     DB::table('orders')->where('purchasing_id',$id)->update([
         'status'=>'For Delivery',
-        ]);
+    ]);
 
     return redirect('view-goods-receipt/'.$id);
 
@@ -855,7 +862,7 @@ public function doSubmitProductBlueprint($id){
 
     DB::table('materials')->where('product_id',$id)->update([
         'status'=>'For Assembly',
-        ]);
+    ]);
 
 
     return redirect('view-product-blueprint/'.$id);
@@ -906,7 +913,7 @@ public function doFinishProduct(Request $request,$id){
 
     DB::table('materials')->where('product_id',$material->product_id)->update([
         'status'=>'Assembled',
-        ]);
+    ]);
 
     $request->session()->flash('success','Product complete.');
 
@@ -917,7 +924,7 @@ public function doFinishProduct(Request $request,$id){
 public function doAddProductQty(Request $request){
 
     // return $request->input('width');
-    
+
     $materials = Material::where('product_id',$request->input('product_id'))->get();
 
     foreach($materials as $item){
@@ -926,14 +933,14 @@ public function doAddProductQty(Request $request){
 
         DB::table('goods')->where('item_id',$item->item_id)->update([
             'qty'=>$good->qty - ($item->qty * $request->input('qty')),
-            ]);
+        ]);
 
         if(Leftover::where('item_id',$item->item_id)->exists()){
 
-        $temp_leftover = Leftover::where('item_id',$item->item_id)->first();
+            $temp_leftover = Leftover::where('item_id',$item->item_id)->first();
 
-        DB::table('leftovers')->where('item_id',$item->item_id)->update([
-            'qty'=>$temp_leftover->qty + 2,
+            DB::table('leftovers')->where('item_id',$item->item_id)->update([
+                'qty'=>$temp_leftover->qty + 2,
             ]);
 
         }else{
@@ -964,7 +971,7 @@ public function doAddProductQty(Request $request){
 
     DB::table('products')->where('product_id',$request->input('product_id'))->update([
         'qty'=>$product->qty + $request->input('qty'),
-        ]);
+    ]);
 
     $request->session()->flash('success','Product quantity added.');
 
@@ -984,7 +991,7 @@ public function doReceiveGoods(Request $request){
 
     DB::table('orders')->where('purchasing_id',$request->input('order_id'))->update([
         'status'=>'For Delivery',
-        ]);
+    ]);
 
     $order = Order::where('id',$request->input('order_id'))->first();
 
@@ -994,11 +1001,11 @@ public function doReceiveGoods(Request $request){
 
         DB::table('goods')->where('item_id',$order->item_id)->update([
             'qty'=>$good->qty + $request->input('delivered_qty'),
-            ]);
+        ]);
 
         DB::table('orders')->where('id',$order->id)->update([
             'delivered_qty'=>$order->delivered_qty + $request->input('delivered_qty'),
-            ]);
+        ]);
 
     }else{
 
@@ -1019,7 +1026,7 @@ public function doReceiveGoods(Request $request){
         DB::table('orders')->where('id',$order->id)->update([
             'delivered_qty'=>$order->delivered_qty + $request->input('delivered_qty'),
             'status'=>'Received',
-            ]);
+        ]);
 
     }
     
@@ -1036,7 +1043,7 @@ public function doReturnGoods(Request $request){
 
     DB::table('orders')->where('purchasing_id',$request->input('order_id'))->update([
         'status'=>'For Delivery',
-        ]);
+    ]);
 
     $order = Order::where('id',$request->input('order_id'))->first();
 
@@ -1046,11 +1053,11 @@ public function doReturnGoods(Request $request){
 
         DB::table('goods')->where('item_id',$order->item_id)->update([
             'qty'=>$good->qty - $request->input('delivered_qty'),
-            ]);
+        ]);
 
         DB::table('orders')->where('id',$order->id)->update([
             'delivered_qty'=>$order->delivered_qty - $request->input('delivered_qty'),
-            ]);
+        ]);
 
 
     }else{
@@ -1072,7 +1079,7 @@ public function doReturnGoods(Request $request){
         DB::table('orders')->where('id',$order->id)->update([
             'delivered_qty'=>$order->delivered_qty - $request->input('delivered_qty'),
             'status'=>'Received',
-            ]);
+        ]);
 
     }
     
@@ -1106,7 +1113,7 @@ public function doReceiveAllGoods(Request $request,$id){
         DB::table('orders')->where('id',$item->id)->update([
             'status'=>'Received',
             'delivered_qty'=>$item->qty,
-            ]);
+        ]);
 
     }
 
@@ -1116,74 +1123,73 @@ public function doReceiveAllGoods(Request $request,$id){
 
 }
 
-    public function showProductBlueprints(){
+public function showProductBlueprints(){
 
-        $materials = Material::where('status','=','For Assembly')->get();
+    $materials = Material::where('status','=','For Assembly')->get();
 
-        return view('product_blueprints')->with('materials',$materials);
+    return view('product_blueprints')->with('materials',$materials);
 
-    }
+}
 
-    public function showSetProductPrice($id){
+public function showSetProductPrice($id){
 
-        $product = Product::find($id);
+    $product = Product::find($id);
 
-        return view('set_product_price')->with('product',$product);
+    return view('set_product_price')->with('product',$product);
 
-    }
+}
 
-    public function doSetProductPrice(Request $request){
+public function doSetProductPrice(Request $request){
 
-        $product = DB::table('products')->where('id',$request->input('product_id'))->update([
-            'price'=>$request->input('price'),
-            ]);
+    $product = DB::table('products')->where('id',$request->input('product_id'))->update([
+        'price'=>$request->input('price'),
+    ]);
 
-        $request->session()->flash('success','Price updated.');
+    $request->session()->flash('success','Price updated.');
 
-        return redirect('manage-inventory-finished-products');
+    return redirect('manage-inventory-finished-products');
 
-    }
+}
 
-    public function showManageCustomerOrders(){
+public function showManageCustomerOrders(){
 
-        $sales = Sale::all();
+    $sales = Sale::all();
 
-        return view('manage_customer_orders')->with('sales',$sales);
+    return view('manage_customer_orders')->with('sales',$sales);
 
-    }
+}
 
-    public function doDeliverCustomerOrder(Request $request,$id){
+public function doDeliverCustomerOrder(Request $request,$id){
 
-        DB::table('sales')->where('id',$id)->update([
-            'status'=>'Delivered',
-            ]);
+    DB::table('sales')->where('id',$id)->update([
+        'status'=>'Delivered',
+    ]);
 
-        $request->session()->flash('success','Item delivered.');
+    $request->session()->flash('success','Item delivered.');
 
-        return back();
+    return back();
 
-    }
+}
 
-    public function showManageLeftovers(){
+public function showManageLeftovers(){
 
-        $leftovers = Leftover::all();
+    $leftovers = Leftover::all();
 
-        return view('manage_inventory_leftovers')->with('leftovers',$leftovers);
+    return view('manage_inventory_leftovers')->with('leftovers',$leftovers);
 
-    }
-    public function doDeleteItem($id){
+}
+public function doDeleteItem($id){
 
-        $item = Item::find($id);
+    $item = Item::find($id);
 
-        $item->delete();
+    $item->delete();
 
-        return back();
+    return back();
 
 
 
-    }
-    
+}
+
 }
 
 
-    

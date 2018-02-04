@@ -86,6 +86,22 @@ class DatabaseSeeder extends Seeder
     		'created_at'=>date('Y-m-d H:i:s'),
     		]);
 
+        DB::table('suppliers')->insert([
+            'description'=>'Easy Wood Products',
+            'address'=>'Quezon City',
+            'contact_number'=>'961-41-85',
+            'details'=>'A supplier of easy woods',
+            'created_at'=>date('Y-m-d H:i:s'),
+            ]);       
+
+        DB::table('suppliers')->insert([
+        'description'=>'LPM Construction Supply and Wood Corp',
+        'address'=>'Manila City',
+        'contact_number'=>'525 6547',
+        'details'=>'Local Supplier',
+        'created_at'=>date('Y-m-d H:i:s'),
+        ]);
+
     	DB::table('suppliers')->insert([
     		'description'=>'Filtra Timber Trading Warehouse',
             'address'=>'Makati City',

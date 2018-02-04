@@ -20,57 +20,66 @@ use App\Branch;
 
                             <div class="col-md-12">
                                 <h5>Product ID</h5>
-                                <input type="text" name="product_id" class="form-control" placeholder="Product ID">
+                                <input type="text" name="product_id" class="form-control" placeholder="Product ID" required>
                             </div>
 
                             <div class="col-md-12">
                                 <h5>Product Name</h5>
-                                <input type="text" name="name" class="form-control" placeholder="Product Name">
+                                <input type="text" name="name" class="form-control" placeholder="Product Name" required>
                             </div>
 
                             <div class="col-md-2">
                                 <h5>Width</h5>
-                                <input type="text" name="width" class="form-control" placeholder="Width">
+                                <input type="text" name="width" class="form-control" placeholder="Width" required>
                             </div>
 
                             <div class="col-md-2">
                                 <h5>Height</h5>
-                                <input type="text" name="height" class="form-control" placeholder="Height">
+                                <input type="text" name="height" class="form-control" placeholder="Height" required>
                             </div>
 
                             <div class="col-md-12"><hr></div>
 
-                            <div class="col-md-6">
-                                <h5>Select Material</h5>
-                                <select name="good_id" class="selectpicker form-control" data-live-search="true">
-                                    @foreach($goods as $item)
-                                    <option value="{{ $item->id }}">{{ Item::find($item->item_id)->sku }} - {{ Item::find($item->item_id)->name }} (₱ {{ $item->price }})  REMAINING QTY: {{ $item->qty }} {{ Item::find($item->item_id)->size }}{{ Item::find($item->item_id)->unit }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            <div class="col-md-12">
 
-                            <div class="col-md-2">
-                                <h5>Leftovers</h5>
-                                <select name="leftover_id" class="form-control">
-                                    <option value="0">N/A</option>
-                                    @foreach($leftovers as $item)
-                                    <option value="{{ $item->id }}">{{ Item::find($item->item_id)->name }} - {{ Item::find($item->item_id)->size }}{{ Item::find($item->item_id)->unit }} REMAINING QTY: {{ $item->qty }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td></td>
+                                            <td>SKU</td>
+                                            <td>Product</td>
+                                            <td>Price</td>
+                                            <td>Leftover</td>
+                                            <td>Remaining Qty</td>
+                                            <td>Qty</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($goods as $item)
+                                        <tr>
+                                            <td>
+                                                
+                                                <input type="checkbox" name="good_id[]" value="{{ $item->id }}"> 
+                                                    <a href="{{ url('remove-process-materials') }}">Remove</a>
+                                            </td>
+                                            <td>{{ Item::find($item->item_id)->sku }}</td>
+                                            <td>{{ Item::find($item->item_id)->name }}</td>
+                                            <td>₱ ({{ number_format($item->price,2) }})</td>
+                                            <td>
+                                                
+                                            </td>
+                                            <td>{{ $item->qty }}</td>
+                                            <td>{{ $item->qty }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
 
-                            <div class="col-md-1">
-                                <h5>Quantity</h5>
-                                <input type="text" name="qty" placeholder="0" class="form-control" value="1" min="1">
-                            </div>
-                            <div class="col-md-1">
-                                <h5>Flexible</h5>
-                                <input type="checkbox" name="flexible" checked>
-                            </div>
+                                <a href="{{ url('update-process-materials/{id}') }}">
+                                    <input type="button" class="btn btn-primary" value="Update Blueprint">
+                                </a>
 
-                            <div class="col-md-2">
-                            <h5>&nbsp;</h5>
-                            <input type="submit" class="btn btn-primary form-control" value="Add Material">
+                                <input type="submit" class="btn btn-primary" value="Finish Product">
                             </div>
 
                         </div>

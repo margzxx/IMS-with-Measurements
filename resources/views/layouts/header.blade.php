@@ -90,8 +90,38 @@
 
                         @if(Auth::guest())
 
+<<<<<<< HEAD
                         
 
+=======
+                          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                          <a class="nav-link" href="{{ url('/') }}">
+                            <i class="fa fa-fw fa-home"></i>
+                            <span class="nav-link-text">Home</span>
+                        </a>
+                    </li>
+
+                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                          <a class="nav-link" href="{{ url('products') }}">
+                            <i class="fa fa-fw fa-cubes"></i>
+                            <span class="nav-link-text">Products and Services</span>
+                        </a>
+                    </li>
+
+                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                          <a class="nav-link" href="{{ url('about-us') }}">
+                            <i class="fa fa-fw fa-print"></i>
+                            <span class="nav-link-text">About us</span>
+                        </a>
+                    </li>
+
+                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                          <a class="nav-link" href="{{ url('branch-locator') }}">
+                            <i class="fa fa-fw fa-location-arrow"></i>
+                            <span class="nav-link-text">Branch Locator</span>
+                        </a>
+                    </li>
+>>>>>>> cdeb27f61d95fa0ed2c5e340fe3c9d2e2832d5cc
                         @else
 
                         @if(Auth::user()->role == 'Client')
@@ -149,6 +179,8 @@
               <li>
                   <a href="{{ url('process-materials') }}">Process Materials</a>
               </li>
+                   <li><a href="{{ url('manage-inventory') }}">Inventory</a></li>
+              
           </ul>
           <!-- /.nav-second-level -->
       </li>
