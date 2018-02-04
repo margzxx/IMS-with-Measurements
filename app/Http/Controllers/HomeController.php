@@ -107,6 +107,14 @@ class HomeController extends Controller
 
     }
 
+    public function doLogout(){
+
+        Auth::logout();
+
+        return redirect('login');
+
+    }
+
     public function doDeleteSupplier($id){
 
         $supplier = Supplier::find($id);
