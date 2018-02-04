@@ -2,11 +2,13 @@
 
 
 Route::get('/','HomeController@showHome');
+Route::get('register','CoreController@showRegister');
+Route::get('login','HomeController@showLogin');
 Route::get('logout','HomeController@doLogout');
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('dashboard','HomeController@showDashboard');
 
