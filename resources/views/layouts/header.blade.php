@@ -161,7 +161,7 @@
                         </li>
 
                           <li>
-                             <a href="#"><i class="fa fa-edit fa-fw"></i> Manage Settings<span class="fa arrow"></span></a>
+                             <a href="#"><i class="fa fa-cog fa-fw"></i> Manage Settings<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                              <li>
                                         <a href="{{ url('receipt-adjustment') }}">Receipt Adjustment</a>
