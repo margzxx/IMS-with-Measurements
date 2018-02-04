@@ -44,7 +44,7 @@ class HomeController extends Controller
 
     public function showManageInventory(){
 
-        $goods = Good::whereNotIn('category_id',[1])->get();
+        $goods = Good::whereNotIn('category_id',[5])->get();
 
         return view('manage_inventory')->with('goods',$goods);
 
