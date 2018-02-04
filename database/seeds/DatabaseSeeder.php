@@ -80,11 +80,17 @@ class DatabaseSeeder extends Seeder
 
     	DB::table('suppliers')->insert([
     		'description'=>'Philippine Timberex Corporation',
+            'address'=>'Eastwood City',
+            'contact_number'=>'09111111111',
+            'details'=>'A supplier of wood',
     		'created_at'=>date('Y-m-d H:i:s'),
     		]);
 
     	DB::table('suppliers')->insert([
     		'description'=>'Filtra Timber Trading Warehouse',
+            'address'=>'Makati City',
+            'contact_number'=>'09222222222',
+            'details'=>'A supplier of wood',
     		'created_at'=>date('Y-m-d H:i:s'),
     		]);
 
