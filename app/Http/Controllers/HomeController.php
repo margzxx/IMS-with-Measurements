@@ -154,8 +154,8 @@ class HomeController extends Controller
 
     public function showAddItem(){
 
-        $categories = Category::whereNotIn('id',[1])->get();
-        $branches = Branch::whereNotIn('id',[1])->get();
+        $categories = Category::get();
+        $branches = Branch::get();
         $suppliers = Supplier::all();
 
         return view('add_item')->with('categories',$categories)
@@ -428,8 +428,8 @@ class HomeController extends Controller
         $item = Item::find($id);
 
         $suppliers = Supplier::all();
-        $branches = Branch::whereNotIn('id',[1])->get();
-        $categories = Category::whereNotIn('id',[1])->get();
+        $branches = Branch::get();
+        $categories = Category::get();
 
         return view('edit_item')->with('item',$item)
         ->with('suppliers',$suppliers)
