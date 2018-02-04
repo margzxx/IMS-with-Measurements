@@ -62,7 +62,7 @@ class HomeController extends Controller
 
     public function showAddProcessMaterials(){
 
-        $goods = Good::whereNotIn('category_id',[1])->get();
+        $goods = Good::whereNotIn('category_id',[5])->get();
 
         $leftovers = Leftover::all();
 
@@ -787,7 +787,7 @@ public function showModifyPurchaseOrders($id){
 public function showModifyProcessMaterials($id){
 
     $materials = Material::where('product_id',$id)->get();
-    $goods = Good::whereNotIn('category_id',[1])->get();
+    $goods = Good::whereNotIn('category_id',[5])->get();
     $leftovers = Leftover::all();
 
     $product_id = $id;
