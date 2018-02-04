@@ -88,6 +88,10 @@
                             <!-- /input-group -->
                         </li>
 
+                        @if(Auth::guest())
+
+                        @else
+
                                     @if(Auth::user()->role == 'Client')
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
                       <a class="nav-link" href="{{ url('order-product') }}">
@@ -178,7 +182,7 @@
                             <!-- /.nav-second-level -->
                         </li>
 
-                      
+                      @endif
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
