@@ -1171,5 +1171,19 @@ public function doReceiveAllGoods(Request $request,$id){
         return view('manage_inventory_leftovers')->with('leftovers',$leftovers);
 
     }
+    public function doDeleteItem($id){
 
+        $item = Item::find($id);
+
+        $item->delete();
+
+        return back();
+
+
+
+    }
+    
 }
+
+
+    

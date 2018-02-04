@@ -91,3 +91,5 @@ Route::get('manage-customer-orders','HomeController@showManageCustomerOrders');
 Route::get('deliver-customer-order/{id}','HomeController@doDeliverCustomerOrder');
 
 Route::get('manage-leftovers','HomeController@showManageLeftovers');
+
+Route::get('delete-item/{id}','HomeController@doDeleteItem');
