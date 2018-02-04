@@ -90,6 +90,33 @@
 
                         @if(Auth::guest())
 
+                          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                          <a class="nav-link" href="{{ url('/') }}">
+                            <i class="fa fa-fw fa-home"></i>
+                            <span class="nav-link-text">Home</span>
+                        </a>
+                    </li>
+
+                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                          <a class="nav-link" href="{{ url('products') }}">
+                            <i class="fa fa-fw fa-cubes"></i>
+                            <span class="nav-link-text">Products and Services</span>
+                        </a>
+                    </li>
+
+                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                          <a class="nav-link" href="{{ url('about-us') }}">
+                            <i class="fa fa-fw fa-print"></i>
+                            <span class="nav-link-text">About us</span>
+                        </a>
+                    </li>
+
+                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                          <a class="nav-link" href="{{ url('branch-locator') }}">
+                            <i class="fa fa-fw fa-location-arrow"></i>
+                            <span class="nav-link-text">Branch Locator</span>
+                        </a>
+                    </li>
                         @else
 
                         @if(Auth::user()->role == 'Client')
