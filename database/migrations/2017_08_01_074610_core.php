@@ -154,6 +154,9 @@ class Core extends Migration
 
             $table->increments('id');
             $table->string('description');
+            $table->string('address');
+            $table->string('contact_number');
+            $table->string('details');
             $table->timestamps();
 
         });
