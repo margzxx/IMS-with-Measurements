@@ -93,6 +93,12 @@ class HomeController extends Controller
 
     }
 
+    public function showDashboard(){
+
+        return view('dashboard');
+
+    }
+
     public function doAddSupplier(Request $request){
 
         $supplier = new Supplier;

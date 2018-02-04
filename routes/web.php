@@ -8,6 +8,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('dashboard','HomeController@showDashboard');
+
 Route::get('change-password-employee/{id}','HomeController@showChangePasswordEmployee');
 Route::post('change-password-employee','HomeController@doChangePasswordEmployee');
 
