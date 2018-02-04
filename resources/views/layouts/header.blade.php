@@ -174,6 +174,8 @@
               <li>
                   <a href="{{ url('process-materials') }}">Process Materials</a>
               </li>
+                   <li><a href="{{ url('manage-inventory') }}">Inventory</a></li>
+              
           </ul>
           <!-- /.nav-second-level -->
       </li>
